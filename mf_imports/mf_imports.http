@@ -1,0 +1,6 @@
+@mf_imports_HostAddress = http://localhost:5261
+
+GET {{mf_imports_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
