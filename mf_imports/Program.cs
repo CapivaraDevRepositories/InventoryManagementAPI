@@ -28,6 +28,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();
 
 var app = builder.Build();
 

@@ -25,7 +25,7 @@ public class CategoriaController : ControllerBase
         return Ok(categorias);
     }
 
-    [HttpGet("id={id}")]
+    [HttpGet("id={id:int}")]
     public IActionResult Get(int id)
     {
         var categoria = _categoriaRepository.GetById(id);
@@ -39,7 +39,7 @@ public class CategoriaController : ControllerBase
         return Ok(categoria);
     }
 
-    [HttpDelete("id={id}")]
+    [HttpDelete("id={id:int}")]
     public IActionResult Delete(int id)
     {
         var categoria = _categoriaRepository.GetById(id);

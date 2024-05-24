@@ -9,7 +9,9 @@ public class ProdutoRepository : IProdutoRepository
     
     public void Add(Produto produto)
     {
+        //produto.Categoria = new CategoriaRepository().GetById(produto.CategoriaId);
         _context.Produtos.Add(produto);
+        _context.SaveChanges();
     }
 
     public List<Produto> GetAll()

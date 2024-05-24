@@ -19,4 +19,15 @@ public class ConnectionContext : DbContext
         optionsBuilder.UseSqlServer("Server=mvsr-oneway.database.windows.net;Database=mfautoparts;User=api_user;Password=bHoiwym4oUGArVGh");
         base.OnConfiguring(optionsBuilder);
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Categoria>()
+            .HasMany<Produto>()
+            .WithOne(e => e.Categoria)
+            .HasForeignKey("CategoriaId")
+            .IsRequired();
+            
+        base.OnModelCreating(modelBuilder);
+    }
 }
