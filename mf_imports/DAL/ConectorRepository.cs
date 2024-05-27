@@ -13,7 +13,7 @@ public class ConectorRepository : IConectorRepository
         _context.SaveChanges();
     }
 
-    public List<Conector> GetAll()
+    public IList<Conector> GetAll()
     {
         return _context.Conectores.ToList();
     }
@@ -23,18 +23,18 @@ public class ConectorRepository : IConectorRepository
         return _context.Conectores.FirstOrDefault(c => c.Id == id);
     }
 
-    public Conector GetByName(string name)
+    public IList<Conector> GetByName(string name)
     {
-        return _context.Conectores.FirstOrDefault(c => c.Nome.Equals(name));
+        return _context.Conectores.Where(c => c.Nome.ToLower().Contains(name.ToLower())).ToList();
     }
 
-    public void Alter(Conector conector)
+    public void Update(Conector conector)
     {
         _context.Conectores.Update(conector);
         _context.SaveChanges();
     }
 
-    public void Delete(Conector conector)
+    public void Remove(Conector conector)
     {
         _context.Remove(conector);
         _context.SaveChanges();

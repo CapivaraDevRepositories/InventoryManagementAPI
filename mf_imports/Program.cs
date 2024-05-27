@@ -29,6 +29,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();
+builder.Services.AddTransient<IConectorRepository, ConectorRepository>();
+builder.Services.AddTransient<IUnidadeMedidaRepository, UnidadeMedidaRepository>();
 
 var app = builder.Build();
 

@@ -14,7 +14,7 @@ public class ProdutoRepository : IProdutoRepository
         _context.SaveChanges();
     }
 
-    public List<Produto> GetAll()
+    public IList<Produto> GetAll()
     {
         return _context.Produtos.ToList();
     }
@@ -24,18 +24,18 @@ public class ProdutoRepository : IProdutoRepository
         return _context.Produtos.FirstOrDefault(p => p.Id == id);
     }
 
-    public Produto GetByName(string name)
+    public IList<Produto> GetByName(string name)
     {
-        return _context.Produtos.FirstOrDefault(p => p.Nome.Equals(name));
+        return _context.Produtos.Where(p => p.Nome.ToLower().Contains(name.ToLower())).ToList();
     }
 
-    public void Alter(Produto produto)
+    public void Update(Produto produto)
     {
         _context.Produtos.Update(produto);
         _context.SaveChanges();
     }
 
-    public void Delete(Produto produto)
+    public void Remove(Produto produto)
     {
         _context.Produtos.Remove(produto);
         _context.SaveChanges();

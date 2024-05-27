@@ -14,7 +14,7 @@ public class CategoriaRepository : ICategoriaRepository
         _context.SaveChanges();
     }
 
-    public List<Categoria?> GetAll()
+    public IList<Categoria> GetAll()
     {
         return _context.Categorias.ToList();
     }
@@ -24,9 +24,9 @@ public class CategoriaRepository : ICategoriaRepository
         return _context.Categorias.FirstOrDefault(c => c.Id == id);
     }
 
-    public Categoria? GetByName(string name)
+    public IList<Categoria> GetByName(string name)
     {
-        return _context.Categorias.FirstOrDefault(c => c.Nome.Equals(name));
+        return _context.Categorias.Where(c => c.Nome.ToLower().Contains(name)).ToList();
     }
 
     public void Alter(Categoria categoria)

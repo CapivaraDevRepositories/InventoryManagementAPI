@@ -3,16 +3,17 @@ using mf_imports.Model;
 
 namespace mf_imports.DAL;
 
-public class UnidadeMedidaRepository : IUnidadeMedida
+public class UnidadeMedidaRepository : IUnidadeMedidaRepository
 {
     private ConnectionContext _context = new ConnectionContext();
     
     public void Add(UnidadeMedida unidadeMedida)
     {
         _context.UnidadeMedidas.Add(unidadeMedida);
+        _context.SaveChanges();
     }
 
-    public List<UnidadeMedida> GetAll()
+    public IList<UnidadeMedida> GetAll()
     {
         return _context.UnidadeMedidas.ToList();
     }
@@ -22,9 +23,9 @@ public class UnidadeMedidaRepository : IUnidadeMedida
         return _context.UnidadeMedidas.FirstOrDefault(um => um.Id == id);
     }
 
-    public UnidadeMedida GetByName(string name)
+    public IList<UnidadeMedida> GetByName(string name)
     {
-        return _context.UnidadeMedidas.FirstOrDefault(um => um.Nome.Equals(name));
+        return _context.UnidadeMedidas.Where(um => um.Nome.ToLower().Contains(name.ToLower())).ToList();
     }
 
     public void Alter(UnidadeMedida unidadeMedida)

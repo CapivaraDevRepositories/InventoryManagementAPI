@@ -5,9 +5,9 @@ namespace mf_imports.DAL.Interfaces;
 public interface ICategoriaRepository
 {
     void Add(Categoria categoria);
-    List<Categoria?> GetAll();
+    IList<Categoria> GetAll();
     Categoria GetById(int id);
-    Categoria? GetByName(string name);
+    IList<Categoria> GetByName(string name);
     void Alter(Categoria categoria);
     void Delete(Categoria? categoria);
 }

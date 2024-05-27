@@ -5,9 +5,9 @@ namespace mf_imports.DAL.Interfaces;
 public interface IProdutoRepository
 {
     void Add(Produto produto);
-    List<Produto> GetAll();
+    IList<Produto> GetAll();
     Produto GetById(int id);
-    Produto GetByName(string name);
-    void Alter(Produto produto);
-    void Delete(Produto produto);
+    IList<Produto> GetByName(string name);
+    void Update(Produto produto);
+    void Remove(Produto produto);
 }

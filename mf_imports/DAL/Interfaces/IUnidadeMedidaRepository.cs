@@ -2,12 +2,12 @@
 
 namespace mf_imports.DAL.Interfaces;
 
-public interface IUnidadeMedida
+public interface IUnidadeMedidaRepository
 {
     void Add(UnidadeMedida unidadeMedida);
-    List<UnidadeMedida> GetAll();
+    IList<UnidadeMedida> GetAll();
     UnidadeMedida GetById(int id);
-    UnidadeMedida GetByName(string name);
+    IList<UnidadeMedida> GetByName(string name);
     void Alter(UnidadeMedida unidadeMedida);
     void Delete(UnidadeMedida unidadeMedida);
 }
