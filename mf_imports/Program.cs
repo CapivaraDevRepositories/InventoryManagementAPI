@@ -1,5 +1,6 @@
 using mf_imports.DAL;
 using mf_imports.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,12 +21,17 @@ builder.Services.AddCors(options =>
 );
 
 // Add services to the container.
+builder.Services.AddDbContext<IConnectionContext, ConnectionContext>(
+    options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("Production")
+    )
+);
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();

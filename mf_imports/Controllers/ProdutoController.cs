@@ -9,7 +9,12 @@ namespace mf_imports.Controllers;
 [Route("api/v1/Produto")]
 public class ProdutoController : ControllerBase
 {
-    private IProdutoRepository _produtoRepository = new ProdutoRepository();
+    private IProdutoRepository _produtoRepository;
+
+    public ProdutoController(IProdutoRepository produtoRepository)
+    {
+        _produtoRepository = produtoRepository;
+    }
 
     [HttpPost]
     public IActionResult Add(Produto produto)

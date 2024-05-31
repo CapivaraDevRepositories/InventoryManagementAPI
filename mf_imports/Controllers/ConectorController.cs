@@ -9,8 +9,13 @@ namespace mf_imports.Controllers;
 [Route("api/v1/conector")]
 public class ConectorController : ControllerBase
 {
-    private IConectorRepository _conectorRepository = new ConectorRepository();
-    
+    private IConectorRepository _conectorRepository;
+
+    public ConectorController(IConectorRepository conectorRepository)
+    {
+        _conectorRepository = conectorRepository;
+    }
+
     [HttpGet]
     public IActionResult GetAllConectors()
     {

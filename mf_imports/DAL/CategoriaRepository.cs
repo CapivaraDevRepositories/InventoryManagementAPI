@@ -6,8 +6,13 @@ namespace mf_imports.DAL;
 
 public class CategoriaRepository : ICategoriaRepository
 {
-    private ConnectionContext _context = new ConnectionContext();
-    
+    private ConnectionContext _context;
+
+    public CategoriaRepository(ConnectionContext context)
+    {
+        _context = context;
+    }
+
     public void Add(Categoria categoria)
     {
         _context.Categorias.Add(categoria);

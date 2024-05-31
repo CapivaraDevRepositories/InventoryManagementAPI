@@ -5,8 +5,13 @@ namespace mf_imports.DAL;
 
 public class UnidadeMedidaRepository : IUnidadeMedidaRepository
 {
-    private ConnectionContext _context = new ConnectionContext();
-    
+    private readonly ConnectionContext _context;
+
+    public UnidadeMedidaRepository(ConnectionContext context)
+    {
+        _context = context;
+    }
+
     public void Add(UnidadeMedida unidadeMedida)
     {
         _context.UnidadeMedidas.Add(unidadeMedida);

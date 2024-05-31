@@ -5,8 +5,13 @@ namespace mf_imports.DAL;
 
 public class ConectorRepository : IConectorRepository
 {
-    private ConnectionContext _context = new ConnectionContext();
-    
+    private ConnectionContext _context;
+
+    public ConectorRepository(ConnectionContext context)
+    {
+        _context = context;
+    }
+
     public void Add(Conector conector)
     {
         _context.Conectores.Add(conector);

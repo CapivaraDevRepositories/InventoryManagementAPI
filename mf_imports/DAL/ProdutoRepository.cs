@@ -5,8 +5,13 @@ namespace mf_imports.DAL;
 
 public class ProdutoRepository : IProdutoRepository
 {
-    private ConnectionContext _context = new ConnectionContext();
-    
+    private ConnectionContext _context;
+
+    public ProdutoRepository(ConnectionContext context)
+    {
+        _context = context;
+    }
+
     public void Add(Produto produto)
     {
         //produto.Categoria = new CategoriaRepository().GetById(produto.CategoriaId);
