@@ -12,4 +12,7 @@ public class Produto
     public decimal PrecoCompra { get; set; }
     public decimal PrecoVenda { get; set; }
     /*public ICollection<string> OpcoesCompra { get; set; }*/
+    public decimal Frete { get; set; }
+    public decimal Seguro { get; set; }
+    public char Certificado { get; set; }
 }
