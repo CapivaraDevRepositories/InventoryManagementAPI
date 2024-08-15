@@ -1,5 +1,7 @@
 using mf_imports.DAL;
 using mf_imports.DAL.Interfaces;
+using mf_imports.Services;
+using mf_imports.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins(
                 "http://localhost:4200",
-                "http://127.0.0.1:4200"
+                "http://127.0.0.1:4200",
+                "http://localhost:3000"
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
@@ -37,7 +40,7 @@ builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddTransient<IConectorRepository, ConectorRepository>();
 builder.Services.AddTransient<IUnidadeMedidaRepository, UnidadeMedidaRepository>();
-
+builder.Services.AddTransient<ICalculoImpostoService, CalculoImpostoService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,6 +49,8 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI();
 // }
+
+app.UseCors(OrigensParaCors);
 
 app.UseHttpsRedirection();
 
