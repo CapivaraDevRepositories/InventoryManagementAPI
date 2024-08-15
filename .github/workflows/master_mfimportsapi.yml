@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ./publish
+          path: ./mf_imports/publish
 
   deploy:
     runs-on: windows-latest
