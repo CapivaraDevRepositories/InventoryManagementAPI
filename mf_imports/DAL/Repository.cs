@@ -4,7 +4,7 @@ namespace mf_imports.DAL;
 
 public class Repository<T> : IRepository<T> where T : class
 {
-    protected ConnectionContext _context;
+    protected readonly ConnectionContext _context;
 
     public Repository(ConnectionContext context)
     {
@@ -19,7 +19,7 @@ public class Repository<T> : IRepository<T> where T : class
 
     public IList<T> GetAll()
     {
-        _context.Set<T>().ToList();
+        return _context.Set<T>().ToList();
     }
 
     public T GetById(int id)
@@ -34,13 +34,13 @@ public class Repository<T> : IRepository<T> where T : class
 
     public void Alter(T entity)
     {
-        throw new NotImplementedException();
+        _context.Set<T>().Update(entity);
+        _context.SaveChanges();
     }
 
     public void Delete(T? entity)
     {
-        throw new NotImplementedException();
+        _context.Set<T>().Remove(entity);
+        _context.SaveChanges();
     }
-}
-
 }
