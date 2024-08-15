@@ -1,6 +1,8 @@
 ﻿using mf_imports.DAL;
 using mf_imports.DAL.Interfaces;
 using mf_imports.Model;
+using mf_imports.Services;
+using mf_imports.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mf_imports.Controllers;
@@ -10,6 +12,7 @@ namespace mf_imports.Controllers;
 public class ProdutoController : ControllerBase
 {
     private IProdutoRepository _produtoRepository;
+    private ICalculoImpostoService _calculoImpostoService = new CalculoImpostoService();
 
     public ProdutoController(IProdutoRepository produtoRepository)
     {
@@ -19,6 +22,13 @@ public class ProdutoController : ControllerBase
     [HttpPost]
     public IActionResult Add(Produto produto)
     {
+        if (produto.PrecoVenda <= 0)
+        {
+            List<Produto> listaProdutos = new List<Produto>();
+            listaProdutos.Add(produto);
+            Orcamento orcamento = _calculoImpostoService.CalculoImposto(listaProdutos);
+            produto.PrecoVenda = orcamento.ValorTotal + (orcamento.ValorTotal * .25m);
+        }
         _produtoRepository.Add(produto);
         return Created();
     }
