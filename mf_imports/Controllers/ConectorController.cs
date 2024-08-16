@@ -9,9 +9,9 @@ namespace mf_imports.Controllers;
 [Route("api/v1/conector")]
 public class ConectorController : ControllerBase
 {
-    private IConectorRepository _conectorRepository;
+    private IRepository<Conector> _conectorRepository;
 
-    public ConectorController(IConectorRepository conectorRepository)
+    public ConectorController(IRepository<Conector> conectorRepository)
     {
         _conectorRepository = conectorRepository;
     }
@@ -41,7 +41,7 @@ public class ConectorController : ControllerBase
             return NotFound();
         }
 
-        _conectorRepository.Remove(conector);
+        _conectorRepository.Delete(conector);
         return Ok();
     }
     
@@ -59,7 +59,7 @@ public class ConectorController : ControllerBase
         // {
         //     return NotFound();
         // }
-        _conectorRepository.Update(conector);
+        _conectorRepository.Alter(conector);
         return Ok();
     }
     

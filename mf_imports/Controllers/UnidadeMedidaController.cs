@@ -9,9 +9,9 @@ namespace mf_imports.Controllers;
 [Route("api/v1/unidadeMedida")]
 public class UnidadeMedidaController : ControllerBase
 {
-    private readonly IUnidadeMedidaRepository _unidadeMedidaRepository;
+    private readonly IRepository<UnidadeMedida> _unidadeMedidaRepository;
 
-    public UnidadeMedidaController(IUnidadeMedidaRepository unidadeMedidaRepository)
+    public UnidadeMedidaController(IRepository<UnidadeMedida> unidadeMedidaRepository)
     {
         _unidadeMedidaRepository = unidadeMedidaRepository;
     }

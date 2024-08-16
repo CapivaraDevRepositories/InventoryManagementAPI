@@ -1,5 +1,6 @@
 using mf_imports.DAL;
 using mf_imports.DAL.Interfaces;
+using mf_imports.Model;
 using mf_imports.Services;
 using mf_imports.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -36,10 +37,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
-builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();
-builder.Services.AddTransient<IConectorRepository, ConectorRepository>();
-builder.Services.AddTransient<IUnidadeMedidaRepository, UnidadeMedidaRepository>();
+builder.Services.AddTransient<IRepository<Categoria>, CategoriaRepository>();
+builder.Services.AddTransient<IRepository<Produto>, ProdutoRepository>();
+builder.Services.AddTransient<IRepository<Conector>, ConectorRepository>();
+builder.Services.AddTransient<IRepository<UnidadeMedida>, UnidadeMedidaRepository>();
 builder.Services.AddTransient<ICalculoImpostoService, CalculoImpostoService>();
 var app = builder.Build();
 
