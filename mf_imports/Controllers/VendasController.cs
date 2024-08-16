@@ -1,5 +1,5 @@
 ﻿using mf_imports.Model;
-using mf_imports.Services;
+using mf_imports.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mf_imports.Controllers;
@@ -8,9 +8,9 @@ namespace mf_imports.Controllers;
 [Route("api/v1/vendas")]
 public class VendasController : ControllerBase
 {
-    private readonly VendaService _vendaService;
+    private readonly IVendaService _vendaService;
 
-    public VendasController(VendaService vendaService)
+    public VendasController(IVendaService vendaService)
     {
         _vendaService = vendaService;
     }
@@ -27,5 +27,11 @@ public class VendasController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpGet]
+    public IActionResult Get()
+    {
+        return Ok(_vendaService.GetAll());
     }
 }

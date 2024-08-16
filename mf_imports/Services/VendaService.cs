@@ -30,4 +30,9 @@ public class VendaService : IVendaService
         }
         _vendaRepository.Add(venda);
     }
+
+    public IList<Venda> GetAll()
+    {
+        return _vendaRepository.GetAll();
+    }
 }
