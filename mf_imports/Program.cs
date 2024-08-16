@@ -37,11 +37,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// REPOSITORIES
 builder.Services.AddTransient<IRepository<Categoria>, CategoriaRepository>();
-builder.Services.AddTransient<IRepository<Produto>, ProdutoRepository>();
+builder.Services.AddTransient<IRepository<Cliente>, Repository<Cliente>>();
 builder.Services.AddTransient<IRepository<Conector>, ConectorRepository>();
+builder.Services.AddTransient<IRepository<Estoque>, Repository<Estoque>>();
+builder.Services.AddTransient<IRepository<EstoqueLocal>, EstoqueLocalRepository>();
+builder.Services.AddTransient<IRepository<EstoqueMovimenta>, Repository<EstoqueMovimenta>>();
+builder.Services.AddTransient<IRepository<Produto>, ProdutoRepository>();
 builder.Services.AddTransient<IRepository<UnidadeMedida>, UnidadeMedidaRepository>();
-builder.Services.AddTransient<ICalculoImpostoService, CalculoImpostoService>();
+builder.Services.AddTransient<IRepository<Venda>, Repository<Venda>>();
+
+// SERVICES
+builder.Services.AddScoped<ICalculoImpostoService, CalculoImpostoService>();
+builder.Services.AddScoped<ICompraProdutoService, CompraProdutoService>();
+builder.Services.AddScoped<IVendaService, VendaService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
