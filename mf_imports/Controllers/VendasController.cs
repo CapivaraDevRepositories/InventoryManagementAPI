@@ -1,4 +1,5 @@
-﻿using mf_imports.Model;
+﻿using mf_imports.DTO;
+using mf_imports.Model;
 using mf_imports.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ public class VendasController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post(Venda venda)
+    public IActionResult Post(VendaDTO venda)
     {
         try
         {
