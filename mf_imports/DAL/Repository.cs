@@ -11,34 +11,34 @@ public class Repository<T> : IRepository<T> where T : class
         _context = context;
     }
 
-    public void Add(T entity)
+    public virtual void Add(T entity)
     {
         _context.Set<T>().Add(entity);
         _context.SaveChanges();
     }
 
-    public IList<T> GetAll()
+    public virtual IList<T> GetAll()
     {
         return _context.Set<T>().ToList();
     }
 
-    public T GetById(int id)
+    public virtual T GetById(int id)
     {
         return _context.Set<T>().Find(id);
     }
 
-    public IList<T> GetByName(string name)
+    public virtual IList<T> GetByName(string name)
     {
         throw new NotImplementedException();
     }
 
-    public void Alter(T entity)
+    public virtual void Alter(T entity)
     {
         _context.Set<T>().Update(entity);
         _context.SaveChanges();
     }
 
-    public void Delete(T? entity)
+    public virtual void Delete(T? entity)
     {
         _context.Set<T>().Remove(entity);
         _context.SaveChanges();

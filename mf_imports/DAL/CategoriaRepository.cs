@@ -6,9 +6,9 @@ namespace mf_imports.DAL;
 
 public class CategoriaRepository : Repository<Categoria>  
 {
-    public CategoriaRepository(IConnectionContext context) : base(context) { }
+    public CategoriaRepository(ConnectionContext context) : base(context) { }
     
-    public new IList<Categoria> GetByName(string name)
+    public override IList<Categoria> GetByName(string name)
     {
         return _context.Categorias.Where(c => c.Nome.ToLower().Contains(name)).ToList();
     }
