@@ -1,9 +1,10 @@
 ﻿using mf_imports.DAL.Interfaces;
 using mf_imports.Model;
+using mf_imports.Services.Interfaces;
 
 namespace mf_imports.Services;
 
-public class VendaService
+public class VendaService : IVendaService
 {
     private readonly IRepository<Venda> _vendaRepository;
     private readonly IRepository<Estoque> _estoqueRepository;
