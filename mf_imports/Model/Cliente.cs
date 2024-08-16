@@ -6,4 +6,6 @@ public class Cliente
     public string Nome { get; set; }
     public string Apelido { get; set; }
     public string Email { get; set; }
+    
+    public ICollection<Venda> Vendas { get; set; }
 }

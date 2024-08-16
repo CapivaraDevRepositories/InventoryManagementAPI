@@ -45,7 +45,7 @@ public class CompraProdutoService : ICompraProdutoService
             {
                 throw new Exception($"Não é permitido adicionar ({produtoDTO.Quantidade}) ao Estoque.");
             }
-                
+            
             RegistrarMovimentacaoEstoque(produtoDTO);
             AdicionarProdutoAoEstoque(produto, COMPRA_EstoqueLocal, produtoDTO.Quantidade);
         }
@@ -64,6 +64,7 @@ public class CompraProdutoService : ICompraProdutoService
                 Id = movimentacao.Id,
                 Quantidade = movimentacao.Quantidade,
                 IdProduto = movimentacao.IdProduto,
+                Produto = _produtoRepository.GetById(movimentacao.IdProduto),
                 NumeroNF = movimentacao.NumeroNF,
                 SerieNF = movimentacao.SerieNF,
                 DataCompra = movimentacao.DataHora
