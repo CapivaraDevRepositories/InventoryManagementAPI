@@ -8,13 +8,13 @@ namespace mf_imports.Services;
 
 public class CompraProdutoService : ICompraProdutoService
 {
-    private readonly IRepository<Estoque> _estoqueRepository;
+    private readonly IEstoqueRepository _estoqueRepository;
     private readonly IRepository<EstoqueMovimenta> _estoqueMovimentaRepository;
     private readonly IRepository<Produto> _produtoRepository;
     private readonly IRepository<EstoqueLocal> _estoqueLocalRepository;
     static private int COMPRA_EstoqueLocal = -1;  
 
-    public CompraProdutoService(IRepository<Estoque> estoqueRepository, IRepository<EstoqueMovimenta> estoqueMovimentaRepository, IRepository<Produto> produtoRepository, IRepository<EstoqueLocal> estoqueLocalRepository)
+    public CompraProdutoService(IEstoqueRepository estoqueRepository, IRepository<EstoqueMovimenta> estoqueMovimentaRepository, IRepository<Produto> produtoRepository, IRepository<EstoqueLocal> estoqueLocalRepository)
     {
         _estoqueRepository = estoqueRepository;
         _estoqueMovimentaRepository = estoqueMovimentaRepository;
