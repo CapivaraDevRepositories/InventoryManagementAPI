@@ -1,6 +1,6 @@
 ﻿namespace mf_imports.Model;
 
-public class VendaProduto
+public class VendaProdutos
 {
     public int Id { get; set; }
     public int VendaId { get; set; }
