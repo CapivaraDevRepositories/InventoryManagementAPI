@@ -2,6 +2,7 @@
 
 public class VendaProduto
 {
+    public int Id { get; set; }
     public int VendaId { get; set; }
     public Venda Venda { get; set; }
 
