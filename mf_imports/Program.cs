@@ -48,7 +48,7 @@ builder.Services.AddTransient<IRepository<Categoria>, CategoriaRepository>();
 builder.Services.AddTransient<IRepository<Cliente>, Repository<Cliente>>();
 builder.Services.AddTransient<IRepository<CompraProduto>, CompraProdutoRepository>();
 builder.Services.AddTransient<IRepository<Conector>, ConectorRepository>();
-builder.Services.AddTransient<IRepository<Estoque>, Repository<Estoque>>();
+builder.Services.AddTransient<IEstoqueRepository, EstoqueRepository>();
 builder.Services.AddTransient<IRepository<EstoqueLocal>, EstoqueLocalRepository>();
 builder.Services.AddTransient<IRepository<EstoqueMovimenta>, Repository<EstoqueMovimenta>>();
 builder.Services.AddTransient<IRepository<Produto>, ProdutoRepository>();
