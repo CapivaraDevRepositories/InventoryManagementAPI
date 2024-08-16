@@ -11,10 +11,10 @@ namespace mf_imports.Controllers;
 [Route("api/v1/Produto")]
 public class ProdutoController : ControllerBase
 {
-    private IProdutoRepository _produtoRepository;
+    private IRepository<Produto> _produtoRepository;
     private ICalculoImpostoService _calculoImpostoService = new CalculoImpostoService();
 
-    public ProdutoController(IProdutoRepository produtoRepository)
+    public ProdutoController(IRepository<Produto> produtoRepository)
     {
         _produtoRepository = produtoRepository;
     }
@@ -57,7 +57,7 @@ public class ProdutoController : ControllerBase
     [HttpPut]
     public IActionResult Update(Produto produto)
     {
-        _produtoRepository.Update(produto);
+        _produtoRepository.Alter(produto);
         return Ok();
     }
 
@@ -65,7 +65,7 @@ public class ProdutoController : ControllerBase
     public IActionResult Delete(int id)
     {
         var prod_remove = _produtoRepository.GetById(id);
-        _produtoRepository.Remove(prod_remove);
+        _produtoRepository.Delete(prod_remove);
         return Ok();
     }
 }

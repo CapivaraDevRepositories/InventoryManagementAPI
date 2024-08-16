@@ -1,5 +1,7 @@
+using System.Text.Json.Serialization;
 using mf_imports.DAL;
 using mf_imports.DAL.Interfaces;
+using mf_imports.Model;
 using mf_imports.Services;
 using mf_imports.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -30,17 +32,33 @@ builder.Services.AddDbContext<IConnectionContext, ConnectionContext>(
     )
 );
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
-builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();
-builder.Services.AddTransient<IConectorRepository, ConectorRepository>();
-builder.Services.AddTransient<IUnidadeMedidaRepository, UnidadeMedidaRepository>();
-builder.Services.AddTransient<ICalculoImpostoService, CalculoImpostoService>();
+// REPOSITORIES
+builder.Services.AddTransient<IRepository<Categoria>, CategoriaRepository>();
+builder.Services.AddTransient<IRepository<Cliente>, Repository<Cliente>>();
+builder.Services.AddTransient<IRepository<CompraProduto>, CompraProdutoRepository>();
+builder.Services.AddTransient<IRepository<Conector>, ConectorRepository>();
+builder.Services.AddTransient<IEstoqueRepository, EstoqueRepository>();
+builder.Services.AddTransient<IRepository<EstoqueLocal>, EstoqueLocalRepository>();
+builder.Services.AddTransient<IRepository<EstoqueMovimenta>, Repository<EstoqueMovimenta>>();
+builder.Services.AddTransient<IRepository<Produto>, ProdutoRepository>();
+builder.Services.AddTransient<IRepository<UnidadeMedida>, UnidadeMedidaRepository>();
+builder.Services.AddTransient<IRepository<Venda>, VendasRepository>();
+
+// SERVICES
+builder.Services.AddScoped<ICalculoImpostoService, CalculoImpostoService>();
+builder.Services.AddScoped<ICompraProdutoService, CompraProdutoService>();
+builder.Services.AddScoped<IVendaService, VendaService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

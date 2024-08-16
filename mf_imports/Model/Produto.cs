@@ -15,4 +15,5 @@ public class Produto
     public decimal Frete { get; set; }
     public decimal Seguro { get; set; }
     public char Certificado { get; set; }
+    public decimal PrecoConcorrencia { get; set; }
 }

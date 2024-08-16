@@ -9,9 +9,9 @@ namespace mf_imports.Controllers;
 [Route("api/v1/Categoria")]
 public class CategoriaController : ControllerBase
 {
-    private readonly ICategoriaRepository _categoriaRepository;
+    private readonly IRepository<Categoria> _categoriaRepository;
 
-    public CategoriaController(ICategoriaRepository categoriaRepository)
+    public CategoriaController(IRepository<Categoria> categoriaRepository)
     {
         _categoriaRepository = categoriaRepository;
     }
