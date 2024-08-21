@@ -45,4 +45,22 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"MarciovsRocha_mf_imports_api" /o:"marciovsrocha" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+      - name: Run unit tests and generate .trx report
+        shell: powershell
+        run: |
+          dotnet test --logger "trx;LogFileName=TestResults.trx"
+      - name: Install trx2junit tool
+        shell: powershell
+        run: |
+          dotnet tool install --global trx2junit
+      - name: Convert .trx to JUnit format
+        shell: powershell
+        run: |
+          trx2junit TestResults.trx
+      - name: Complete SonarCloud analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.junit.reportPaths="TestResults.xml"
