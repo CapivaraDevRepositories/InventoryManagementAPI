@@ -23,6 +23,10 @@ public class ClienteController : ControllerBase
     [HttpGet("id={id:int}")]
     public ActionResult Get(int id)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var cliente = _clienteRepository.GetById(id);
         if (cliente == null)
             return NotFound();
@@ -32,6 +36,10 @@ public class ClienteController : ControllerBase
     [HttpPost]
     public ActionResult Post(Cliente cliente)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         if (cliente == null)
         {
             return BadRequest("Cliente object is null");
@@ -44,6 +52,10 @@ public class ClienteController : ControllerBase
     [HttpPut]
     public ActionResult Update(Cliente cliente)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         _clienteRepository.Alter(cliente);
         return Ok();
     }
@@ -51,6 +63,10 @@ public class ClienteController : ControllerBase
     [HttpDelete("id={id:int}")]
     public ActionResult Delete(int id)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var cliente = _clienteRepository.GetById(id);
         if (cliente == null)
         {
@@ -63,6 +79,10 @@ public class ClienteController : ControllerBase
     [HttpGet("nome={nome}")]
     public ActionResult GetByName(string nome)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var clientes = _clienteRepository.GetByName(nome);
         if (clientes == null || !clientes.Any())
         {
