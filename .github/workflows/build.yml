@@ -57,10 +57,10 @@ jobs:
       - name: Convert .trx to JUnit format
         shell: powershell
         run: |
-          trx2junit TestResults.trx
+          trx2junit ./UnitTests/TestResults/TestResults.trx
       - name: Complete SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.junit.reportPaths="TestResults.xml"
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.junit.reportPaths="./UnitTests/TestResults/TestResults.xml"
