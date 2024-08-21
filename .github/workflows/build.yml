@@ -48,7 +48,7 @@ jobs:
       - name: Run unit tests and generate .trx report
         shell: powershell
         run: |
-          dotnet test --logger "trx;LogFileName=UnitTests/TestResults/TestResults.trx"
+          dotnet test --logger "trx;LogFileName=TestResults.trx"
 
       - name: Install trx2junit tool
         shell: powershell
