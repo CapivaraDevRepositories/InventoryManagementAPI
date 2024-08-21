@@ -19,6 +19,10 @@ public class CategoriaController : ControllerBase
     [HttpPost]
     public IActionResult Add(Categoria categoria)
     {
+        if (null == categoria)
+        {
+            return BadRequest("Objeto fornecido não pode ser nulo ou vazio.");
+        }
         _categoriaRepository.Add(categoria);
         return Created();
     }
@@ -34,6 +38,10 @@ public class CategoriaController : ControllerBase
     public IActionResult Get(int id)
     {
         var categoria = _categoriaRepository.GetById(id);
+        if (null == categoria)
+        {
+            return NotFound();
+        }
         return Ok(categoria);
     }
 
@@ -41,6 +49,10 @@ public class CategoriaController : ControllerBase
     public IActionResult Get(string nome)
     {
         var categoria = _categoriaRepository.GetByName(nome);
+        if (null == categoria)
+        {
+            return NotFound();
+        }
         return Ok(categoria);
     }
 
@@ -48,6 +60,10 @@ public class CategoriaController : ControllerBase
     public IActionResult Delete(int id)
     {
         var categoria = _categoriaRepository.GetById(id);
+        if (null == categoria)
+        {
+            return NotFound("Id informado não encotrado ou vazio.");
+        }
         _categoriaRepository.Delete(categoria);
         return Ok();
     }
@@ -55,6 +71,10 @@ public class CategoriaController : ControllerBase
     [HttpPut]
     public IActionResult Update(Categoria categoria)
     {
+        if (null == categoria)
+        {
+            return BadRequest("Objeto fornecido não pode ser nulo ou vazio.");
+        }
         _categoriaRepository.Alter(categoria);
         return Ok();
     }
