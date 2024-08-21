@@ -4,6 +4,7 @@
 ![Entity Framework Core](https://img.shields.io/badge/Entity%20Framework%20Core-9.0-green)
 ![Azure SQL Database](https://img.shields.io/badge/Azure%20SQL-Database-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=MarciovsRocha_mf_imports_api)
 
 ## Overview
