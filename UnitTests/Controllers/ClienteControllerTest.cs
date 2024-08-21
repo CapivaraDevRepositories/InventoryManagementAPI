@@ -6,6 +6,7 @@ using Moq;
 
 namespace UnitTests.Controllers
 {
+    [Trait("Category", "ClienteController")]
     public class ClienteControllerTest
     {
         private readonly Mock<IRepository<Cliente>> _mockRepository;

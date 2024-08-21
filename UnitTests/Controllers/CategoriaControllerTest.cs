@@ -4,8 +4,10 @@ using mf_imports.DAL.Interfaces;
 using mf_imports.Model;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace UnitTests.Controllers
 {
+    [Trait("Category", "CategoriaController")]
     public class CategoriaControllerTest
     {
         private readonly Mock<IRepository<Categoria>> _repoMock;
