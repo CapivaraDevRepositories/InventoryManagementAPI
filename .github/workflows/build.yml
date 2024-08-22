@@ -41,7 +41,13 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+          
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
+      - name: Add ReportGenerator to PATH
+        run: echo "::add-path::$(echo $HOME/.dotnet/tools)"
+      
       - name: Build and begin SonarCloud analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -50,23 +56,23 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"MarciovsRocha_mf_imports_api" /o:"marciovsrocha" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportPaths="coverage.opencover.xml"
           dotnet build
-
+          
       - name: Run unit tests and collect coverage
         shell: powershell
         run: |
           dotnet test --collect:"XPlat Code Coverage" --logger "trx;LogFileName=TestResults.trx"
           reportgenerator "-reports:**/coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
-
+      
       - name: Install trx2junit tool
         shell: powershell
         run: |
           dotnet tool install --global trx2junit
-
+          
       - name: Convert .trx to JUnit format
         shell: powershell
         run: |
           trx2junit UnitTests/TestResults/TestResults.trx
-
+          
       - name: Complete SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
