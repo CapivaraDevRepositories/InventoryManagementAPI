@@ -5,6 +5,7 @@ on:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   build:
     name: Build, test, and analyze
@@ -15,7 +16,7 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu' # Alternative distribution options are available.
-      
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for better analysis relevance
@@ -41,42 +42,32 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-          
-      - name: Install ReportGenerator
-        run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
-      - name: Add ReportGenerator to PATH
-        run: |
-          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
-      
-      - name: Build and begin SonarCloud analysis
+      - name: Install dotnet-coverage
+        run: dotnet tool install --global dotnet-coverage
+
+      - name: Add dotnet tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Begin SonarCloud analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"MarciovsRocha_mf_imports_api" /o:"marciovsrocha" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportPaths="coverage.opencover.xml"
-          dotnet build
-          
-      - name: Run unit tests and collect coverage
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"MarciovsRocha_mf_imports_api" /o:"marciovsrocha" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths="coverage.xml"
+
+      - name: Build project
+        shell: powershell
+        run: dotnet build --no-incremental
+
+      - name: Run tests and collect coverage
         shell: powershell
         run: |
-          dotnet test --collect:"XPlat Code Coverage" --logger "trx;LogFileName=TestResults.trx"
-          reportgenerator "-reports:**/coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
-      
-      - name: Install trx2junit tool
-        shell: powershell
-        run: |
-          dotnet tool install --global trx2junit
-          
-      - name: Convert .trx to JUnit format
-        shell: powershell
-        run: |
-          trx2junit UnitTests/TestResults/TestResults.trx
-          
+          dotnet-coverage collect "dotnet test --no-build" -f xml -o "coverage.xml"
+
       - name: Complete SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
-        run: |
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
