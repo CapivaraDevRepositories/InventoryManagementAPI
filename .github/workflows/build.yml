@@ -46,7 +46,8 @@ jobs:
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
       - name: Add ReportGenerator to PATH
-        run: echo "::add-path::$(echo $HOME/.dotnet/tools)"
+        run: |
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
       
       - name: Build and begin SonarCloud analysis
         env:
