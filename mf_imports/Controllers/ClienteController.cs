@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace mf_imports.Controllers;
 
+[ApiController]
 [Route("api/v1/cliente")]
 public class ClienteController : ControllerBase
 {
@@ -15,18 +16,17 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType<int>(StatusCodes.Status200OK)]
     public ActionResult Get()
     {
         return Ok(_clienteRepository.GetAll());
     }
 
     [HttpGet("id={id:int}")]
+    [ProducesResponseType<int>(StatusCodes.Status200OK)]
+    [ProducesResponseType<int>(StatusCodes.Status404NotFound)]
     public ActionResult Get(int id)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
         var cliente = _clienteRepository.GetById(id);
         if (cliente == null)
             return NotFound();
@@ -34,12 +34,10 @@ public class ClienteController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType<int>(StatusCodes.Status201Created)]
+    [ProducesResponseType<int>(StatusCodes.Status400BadRequest)]
     public ActionResult Post(Cliente cliente)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
         if (cliente == null)
         {
             return BadRequest("Cliente object is null");
@@ -50,23 +48,19 @@ public class ClienteController : ControllerBase
     }
 
     [HttpPut]
+    [ProducesResponseType<int>(StatusCodes.Status200OK)]
+    [ProducesResponseType<int>(StatusCodes.Status404NotFound)]
     public ActionResult Update(Cliente cliente)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
         _clienteRepository.Alter(cliente);
         return Ok();
     }
 
     [HttpDelete("id={id:int}")]
+    [ProducesResponseType<int>(StatusCodes.Status200OK)]
+    [ProducesResponseType<int>(StatusCodes.Status404NotFound)]
     public ActionResult Delete(int id)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
         var cliente = _clienteRepository.GetById(id);
         if (cliente == null)
         {
@@ -77,12 +71,10 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet("nome={nome}")]
+    [ProducesResponseType<string>(StatusCodes.Status200OK)]
+    [ProducesResponseType<string>(StatusCodes.Status404NotFound)]
     public ActionResult GetByName(string nome)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
         var clientes = _clienteRepository.GetByName(nome);
         if (clientes == null || !clientes.Any())
         {
