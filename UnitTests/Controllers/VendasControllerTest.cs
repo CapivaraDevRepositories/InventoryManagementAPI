@@ -17,10 +17,10 @@ namespace UnitTests.Controllers
             // Arrange
             var mockVendaService = new Mock<IVendaService>();
             var controller = new VendasController(mockVendaService.Object);
-            var vendaDTO = new VendaDTO { ClienteId = 1, VendaProduto = new List<VendaProdutoDTO>() };
+            var vendaDto = new VendaDTO { ClienteId = 1, VendaProduto = new List<VendaProdutoDTO>() };
 
             // Act
-            var result = controller.Post(vendaDTO);
+            var result = controller.Post(vendaDto);
 
             // Assert
             Assert.IsType<CreatedResult>(result);
@@ -32,12 +32,12 @@ namespace UnitTests.Controllers
             // Arrange
             var mockVendaService = new Mock<IVendaService>();
             mockVendaService.Setup(service => service.RealizarVenda(It.IsAny<VendaDTO>()))
-                .Throws(new System.Exception());
+                .Throws(new Exception());
             var controller = new VendasController(mockVendaService.Object);
-            var vendaDTO = new VendaDTO { ClienteId = 1, VendaProduto = new List<VendaProdutoDTO>() };
+            var vendaDto = new VendaDTO { ClienteId = 1, VendaProduto = new List<VendaProdutoDTO>() };
 
             // Act
-            var result = controller.Post(vendaDTO);
+            var result = controller.Post(vendaDto);
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -58,7 +58,7 @@ namespace UnitTests.Controllers
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var objectResult = result as OkObjectResult;
-            Assert.IsAssignableFrom<IEnumerable<Venda>>(objectResult.Value);
+            Assert.IsAssignableFrom<IEnumerable<Venda>>(objectResult?.Value);
         }
     }
 }

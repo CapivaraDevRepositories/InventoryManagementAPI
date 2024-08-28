@@ -48,8 +48,9 @@ public class ConectorControllerTest
     [Fact]
     public void GetById_UnknownId_ReturnsNotFoundResult()
     {
+        Conector? returnedConector = null;
         // Arrange
-        _mockRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Conector)null);
+        _mockRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns(returnedConector!);
 
         // Act
         var result = _controller.GetById(1);
@@ -75,8 +76,9 @@ public class ConectorControllerTest
     [Fact]
     public void Remove_UnknownId_ReturnsNotFoundResult()
     {
+        Conector? returnedConector = null;
         // Arrange
-        _mockRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Conector)null);
+        _mockRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns(returnedConector!);
 
         // Act
         var result = _controller.Remove(1);

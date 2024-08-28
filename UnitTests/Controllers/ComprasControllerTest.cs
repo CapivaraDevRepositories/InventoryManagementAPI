@@ -67,7 +67,7 @@ public class ComprasControllerTest
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnValue = Assert.IsType<List<CompraProduto>>(okResult.Value);
-        Assert.Equal(1, returnValue.Count);
+        Assert.Single(returnValue);
     }
 
     [Fact]

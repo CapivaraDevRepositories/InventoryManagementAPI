@@ -22,7 +22,7 @@ public class CategoriaControllerTest
     [Fact]
     public void Add_NullCategory_BadRequest()
     {
-        var result = _controller.Add(null);
+        var result = _controller.Add(null!);
         Assert.IsType<BadRequestObjectResult>(result);
     }
 
@@ -60,7 +60,8 @@ public class CategoriaControllerTest
     [Fact]
     public void Get_ById_Null_NotFound()
     {
-        _repoMock.Setup(r => r.GetById(It.IsAny<int>())).Returns((Categoria)null);
+        Categoria? returns = null;
+        _repoMock.Setup(r => r.GetById(It.IsAny<int>())).Returns(returns!);
 
         var result = _controller.Get(6);
 
@@ -70,7 +71,8 @@ public class CategoriaControllerTest
     [Fact]
     public void Get_ByNome_Null_NotFound()
     {
-        _repoMock.Setup(r => r.GetByName(It.IsAny<string>())).Returns((List<Categoria>)null);
+        List<Categoria>? returns = null;
+        _repoMock.Setup(r => r.GetByName(It.IsAny<string>())).Returns(returns!);
 
         var result = _controller.Get("João");
 
@@ -80,27 +82,40 @@ public class CategoriaControllerTest
     [Fact]
     public void Get_ById_Ok()
     {
-        _repoMock.Setup(r => r.GetById(It.IsAny<int>())).Returns((Categoria)null);
+        Categoria returns = new Categoria { Id = 1, Nome = "Test1" };
+        _repoMock.Setup(r => r.GetById(It.IsAny<int>())).Returns(returns);
 
-        var result = _controller.Get(2);
+        var result = _controller.Get(1);
 
-        Assert.IsType<NotFoundResult>(result);
+        var okObject = Assert.IsType<OkObjectResult>(result);
+        Assert.IsType<Categoria>(okObject.Value);
     }
     
     [Fact]
     public void Get_ByNome_Ok()
     {
-        _repoMock.Setup(r => r.GetByName(It.IsAny<string>())).Returns((List<Categoria>)null);
+        var returns = new List<Categoria>
+        {
+            new Categoria { Id = 1, Nome = "Test1" },
+            new Categoria { Id = 2, Nome = "Test2" }
+        };
+        _repoMock.Setup(r => r.GetByName(It.IsAny<string>())).Returns(returns);
 
         var result = _controller.Get("Test");
 
-        Assert.IsType<NotFoundResult>(result);
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        var categoriaList = Assert.IsAssignableFrom<IEnumerable<Categoria>>(okResult.Value);
+        Assert.Collection(categoriaList, 
+            item => Assert.Equal(1, item.Id), 
+            item => Assert.Equal(2, item.Id)
+        );
     }
 
     [Fact]
     public void Delete_InvalidId_NotFound()
     {
-        _repoMock.Setup(r => r.GetById(It.IsAny<int>())).Returns((Categoria)null);
+        Categoria? returns = null;
+        _repoMock.Setup(r => r.GetById(It.IsAny<int>())).Returns(returns!);
 
         var result = _controller.Delete(3);
 
@@ -110,17 +125,18 @@ public class CategoriaControllerTest
     [Fact]
     public void Delete_Id_Ok()
     {
-        _repoMock.Setup(r => r.GetById(It.IsAny<int>())).Returns((Categoria)null);
+        Categoria returns = new Categoria { Id = 1, Nome = "Test1" };
+        _repoMock.Setup(r => r.GetById(It.IsAny<int>())).Returns(returns);
 
         var result = _controller.Delete(1);
 
-        Assert.IsType<NotFoundObjectResult>(result);
+        Assert.IsType<OkResult>(result);
     }
 
     [Fact]
     public void Update_NullCategory_BadRequest()
     {
-        var result = _controller.Update(null);
+        var result = _controller.Update(null!);
         Assert.IsType<BadRequestObjectResult>(result);
     }
 

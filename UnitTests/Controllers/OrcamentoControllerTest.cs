@@ -36,10 +36,10 @@ public class OrcamentoControllerTest
     public void GerarOrcamento_ShouldReturnBadRequest_WhenListaProdutosIsNull()
     {
         // Arrange
-        List<Produto> nullListaProdutos = null;
+        List<Produto>? nullListaProdutos = null;
 
         // Act
-        var result = _controller.GerarOrcamento(nullListaProdutos);
+        var result = _controller.GerarOrcamento(nullListaProdutos!);
 
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);

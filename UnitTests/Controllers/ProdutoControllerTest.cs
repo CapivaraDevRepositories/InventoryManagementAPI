@@ -1,7 +1,6 @@
 ﻿using mf_imports.Controllers;
 using mf_imports.DAL.Interfaces;
 using mf_imports.Model;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -10,10 +9,9 @@ namespace UnitTests.Controllers;
 [Trait("Category","ProdutoController")]
 public class ProdutoControllerTest
 {
-    private ProdutoController _controller;
-    private IRepository<Produto> _repository;
-    private Mock<IRepository<Produto>> _mockRepository;
-    private Produto _produto;
+    private readonly ProdutoController _controller;
+    private readonly Mock<IRepository<Produto>> _mockRepository;
+    private readonly Produto _produto;
 
     public ProdutoControllerTest()
     {

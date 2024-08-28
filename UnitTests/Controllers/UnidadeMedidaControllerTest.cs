@@ -52,8 +52,9 @@ public class UnidadeMedidaControllerTest
     [Fact]
     public void GetById_UnidadeMedidaDoesNotExist_ReturnsNotFoundResponse()
     {
+        UnidadeMedida? returnItem = null;
         // Arrange
-        _mockRepo.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((UnidadeMedida)null);
+        _mockRepo.Setup(repo => repo.GetById(It.IsAny<int>())).Returns(returnItem!);
 
         // Act
         var result = _controller.Get(9);
@@ -116,8 +117,9 @@ public class UnidadeMedidaControllerTest
     [Fact]
     public void Delete_UnidadeMedidaDoesNotExist_ReturnsNotFoundResponse()
     {
+        UnidadeMedida? returnItem = null;
         // Arrange
-        _mockRepo.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((UnidadeMedida)null);
+        _mockRepo.Setup(repo => repo.GetById(It.IsAny<int>())).Returns(returnItem!);
 
         // Act
         var result = _controller.Delete(9);

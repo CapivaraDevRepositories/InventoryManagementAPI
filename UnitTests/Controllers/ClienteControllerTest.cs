@@ -33,7 +33,8 @@ public class ClienteControllerTest
     [Fact]
     public void GetById_InvalidIdPassed_ReturnsNotFoundResult()
     {
-        _mockRepository.Setup(repo => repo.GetById(0)).Returns((Cliente)null);
+        Cliente? returns = null;
+        _mockRepository.Setup(repo => repo.GetById(0)).Returns(returns!);
 
         var result = _controller.Get(0);
 
@@ -43,7 +44,7 @@ public class ClienteControllerTest
     [Fact]
     public void GetById_ValidIdPassed_ReturnsOkResult()
     {
-        var expectedCliente = GetClientes().First();
+        var expectedCliente = GetClientes()[0];
         _mockRepository.Setup(repo => repo.GetById(1)).Returns(expectedCliente);
 
         var result = _controller.Get(1);
@@ -68,7 +69,7 @@ public class ClienteControllerTest
     [Fact]
     public void Add_NullObjectPassed_ReturnsBadRequest()
     {
-        var result = _controller.Post(null);
+        var result = _controller.Post(null!);
 
         Assert.IsType<BadRequestObjectResult>(result);
     }
@@ -76,7 +77,7 @@ public class ClienteControllerTest
     [Fact]
     public void Update_ValidObjectPassed_ReturnsOkResult()
     {
-        var clienteToUpdate = GetClientes().First();
+        var clienteToUpdate = GetClientes()[0];
         _mockRepository.Setup(repo => repo.GetById(clienteToUpdate.Id)).Returns(clienteToUpdate);
 
         var result = _controller.Update(clienteToUpdate);
@@ -87,7 +88,8 @@ public class ClienteControllerTest
     [Fact]
     public void Delete_IdUnknown_ReturnsNotFoundResult()
     {
-        _mockRepository.Setup(repo => repo.GetById(0)).Returns((Cliente)null);
+        Cliente? returns = null;
+        _mockRepository.Setup(repo => repo.GetById(0)).Returns(returns!);
 
         var result = _controller.Delete(0);
 
@@ -97,7 +99,7 @@ public class ClienteControllerTest
     [Fact]
     public void Delete_ValidIdPassed_ReturnsOkResult()
     {
-        var clienteToDelete = GetClientes().First();
+        var clienteToDelete = GetClientes()[0];
         _mockRepository.Setup(repo => repo.GetById(1)).Returns(clienteToDelete);
 
         var result = _controller.Delete(1);
@@ -108,7 +110,8 @@ public class ClienteControllerTest
     [Fact]
     public void GetByName_NameNotFound_ReturnsNotFoundResult()
     {
-        _mockRepository.Setup(repo => repo.GetByName("Unknown")).Returns((List<Cliente>)null);
+        List<Cliente>? returns = null;
+        _mockRepository.Setup(repo => repo.GetByName("Unknown")).Returns(returns!);
 
         var result = _controller.GetByName("Unknown");
 
@@ -119,7 +122,7 @@ public class ClienteControllerTest
     public void GetByName_ValidNamePassed_ReturnsOkResult()
     {
         var expectedClientes = GetClientes();
-        var searchName = expectedClientes.First().Nome;
+        var searchName = expectedClientes[0].Nome;
         _mockRepository.Setup(repo => repo.GetByName(searchName)).Returns(expectedClientes);
 
         var result = _controller.GetByName(searchName);
