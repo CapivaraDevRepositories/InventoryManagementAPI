@@ -16,6 +16,11 @@ public class ComprasController : ControllerBase
         _compraProdutoService = compraProdutoService;
     }
 
+    /// <summary>
+    /// Registers a purchase in the system.
+    /// </summary>
+    /// <param name="compraProduto">The list of purchases to be registered.</param>
+    /// <returns>An IActionResult indicating the result of the operation.</returns>
     [HttpPost]
     public IActionResult RegistrarCompra([FromBody] IList<ProdutoCompraDTO> compraProduto)
     {
@@ -30,6 +35,9 @@ public class ComprasController : ControllerBase
         }
     }
 
+    /// Retrieves all purchase products from the system.
+    /// </summary>
+    /// <returns>An IActionResult containing the list of purchase products.</returns>
     [HttpGet]
     public IActionResult GetCompras()
     {
