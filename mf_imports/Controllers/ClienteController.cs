@@ -16,12 +16,15 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType<int>(StatusCodes.Status200OK)]
     public ActionResult Get()
     {
         return Ok(_clienteRepository.GetAll());
     }
 
     [HttpGet("id={id:int}")]
+    [ProducesResponseType<int>(StatusCodes.Status200OK)]
+    [ProducesResponseType<int>(StatusCodes.Status404NotFound)]
     public ActionResult Get(int id)
     {
         var cliente = _clienteRepository.GetById(id);
@@ -31,6 +34,8 @@ public class ClienteController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType<int>(StatusCodes.Status201Created)]
+    [ProducesResponseType<int>(StatusCodes.Status400BadRequest)]
     public ActionResult Post(Cliente cliente)
     {
         if (cliente == null)
@@ -43,6 +48,8 @@ public class ClienteController : ControllerBase
     }
 
     [HttpPut]
+    [ProducesResponseType<int>(StatusCodes.Status200OK)]
+    [ProducesResponseType<int>(StatusCodes.Status404NotFound)]
     public ActionResult Update(Cliente cliente)
     {
         _clienteRepository.Alter(cliente);
@@ -50,6 +57,8 @@ public class ClienteController : ControllerBase
     }
 
     [HttpDelete("id={id:int}")]
+    [ProducesResponseType<int>(StatusCodes.Status200OK)]
+    [ProducesResponseType<int>(StatusCodes.Status404NotFound)]
     public ActionResult Delete(int id)
     {
         var cliente = _clienteRepository.GetById(id);
@@ -62,6 +71,8 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet("nome={nome}")]
+    [ProducesResponseType<string>(StatusCodes.Status200OK)]
+    [ProducesResponseType<string>(StatusCodes.Status404NotFound)]
     public ActionResult GetByName(string nome)
     {
         var clientes = _clienteRepository.GetByName(nome);
