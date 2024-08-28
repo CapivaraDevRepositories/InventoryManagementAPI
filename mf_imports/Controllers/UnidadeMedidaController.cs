@@ -101,7 +101,7 @@ public class UnidadeMedidaController : ControllerBase
     public ActionResult GetByName(string nome)
     {
         var unidadeMedida = _unidadeMedidaRepository.GetByName(nome);
-        if ((unidadeMedida == null) || (0 >= unidadeMedida.Count()))
+        if ((unidadeMedida == null) || (! unidadeMedida.Any())
         {
             return NotFound();
         }
