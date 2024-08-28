@@ -3,15 +3,11 @@ using mf_imports.Services.Interfaces;
 using mf_imports.DTO;
 using mf_imports.Model;
 using Microsoft.AspNetCore.Mvc;
-using Xunit;
-using System.Collections.Generic;
-using System;
-using JetBrains.Annotations;
 using mf_imports.Controllers;
 
 namespace UnitTests.Controllers;
 
-[TestSubject(typeof(ComprasController))]
+[Trait("Category", "ComprasController")]
 public class ComprasControllerTest
 {
     private readonly ComprasController _controller;
