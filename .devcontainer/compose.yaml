@@ -11,3 +11,8 @@ services:
     tty: true
 volumes:
   dotnetvolume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ../
+      o: bind
