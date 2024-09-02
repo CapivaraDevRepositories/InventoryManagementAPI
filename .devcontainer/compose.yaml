@@ -1,0 +1,13 @@
+services:
+  dotnetdevcontainer:
+    build:
+      dockerfile: dockerfile
+    ports:
+      - 8080:8080
+      - 8081:8081
+    volumes:
+      - dotnetvolume:/home/develop
+    stdin_open: true
+    tty: true
+volumes:
+  dotnetvolume:

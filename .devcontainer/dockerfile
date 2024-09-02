@@ -1,0 +1,43 @@
+FROM ubuntu:latest
+
+# build-essential 
+
+RUN apt update && apt install -y \
+    ca-certificates \
+    libc6 \
+    libgcc-s1 \
+    libicu74 \
+    liblttng-ust1 \
+    libssl3 \
+    libstdc++6 \
+    libunwind8 \
+    zlib1g \
+    build-essential \
+    libcurl4-gnutls-dev \
+    libxml2-dev \
+    libssl-dev \
+    cython3 \
+    libatlas-base-dev \
+    gfortran \
+    git \
+    vim \
+    nano \ 
+    dotnet-sdk-8.0 \
+    aspnetcore-runtime-8.0 \
+    dotnet-runtime-8.0 \
+    curl
+
+# install nuget 
+RUN curl -o /usr/local/bin/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+
+# Create as alias for nuget
+RUN alias nuget="mono /usr/local/bin/nuget.exe"
+
+RUN useradd -ms /bin/bash develop
+
+USER develop
+
+WORKDIR /home/develop
+
+# Keep the container running
+CMD [ "bash" ]
